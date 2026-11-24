@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio - macOS Style</title>
+    <style>
+        :root {
+            --pink: #ff64a3;
+            --light: #dfeaf8;
+            --icon-label-bg: rgba(0, 0, 0, 0.2);
+            --text-color: #ffffff;
+            --mac-blue: #ffd1dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAYCAYAAAD9bx+IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALFJREFUeNpi/P//PwMlgImBQsD4//8/AyUYXfD///8fLIIZ8Ar8//8fWQByDCHp8f/v7/9A8v//fxZk9XAZALIDmYMcA8H6uXSBFAOR6vFmIPYAGX8MUP8H0v8ZqIsfMGDq8Qf6Bv9mZ2f7ByT/M0Anf6AofpAd6C6AWYAFuR986f9A8r9ZQP0f6OIPMAsY6OYPFMUPhAV6AIsB6AawmUCTmYEU8wYpAEC6XF00XFf8X9S0AQgwAPN9H9A6uY6LAAAAAElFTkSuQmCC"), auto;
+        }
+
+        /* --- Carregamento / fade in do site --- */
+        .page {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        body.loaded .page {
+            opacity: 1;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: opacity 0.7s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-star {
+            display: block;
+            width: 84px;
+            height: 84px;
+            animation: starSpin 2.4s linear infinite;
+        }
+
+        a {
+            cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAYCAYAAAD9bx+IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALlJREFUeNpi/P//PwMlgImBQsD4//8/AyUYXfD///8fLIIZ8Ar8//8fWQByDCHp8f/v7/9A8v//fxZk9XAZALIDmYMcA8H6uXSBFAOR6vFmIPYAGX8MUP8H0v8ZqIsfMGDq8Qf6Bv9mZ2f7ByT/M0Anf6AofpAd6C6AWYAFuR986f9A8r9ZQP0f6OIPMAsY6OYPFMUPhAV6AIsB6AawmUCTmYEU8wYpAEC6XF00XFf8X9S0AQgwAPN9H9A6uY6LAAAAAElFTkSuQmCC"), pointer !important;
+        }
+
+        /* ============ LP: palco (1920x1080) ============ */
+        :root {
+            --u: min(calc(100vw / 1920), calc(100vh / 1080));
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .stage {
+            position: relative;
+            width: calc(var(--u) * 1920);
+            height: calc(var(--u) * 1080);
+            overflow: hidden;
+            flex: none;
+        }
+
+        /* --- Linhas de texto (flujo, alinhadas pela linha de base) --- */
+        .line {
+            position: absolute;
+            left: calc(var(--u) * 338);
+            width: calc(var(--u) * 1230);
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        /* régua invisível: fixa a linha de base e evita pulos ao trocar de fonte */
+        .ruler {
+            flex: none;
+            width: 0;
+            min-width: 0;
+            line-height: 1;
+            font-family: Arial, Helvetica, sans-serif;
+            color: transparent;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .line-1 { top: calc(var(--u) * 383); }
+        .line-2 { top: calc(var(--u) * 516); left: calc(var(--u) * 335); }
+        .line-1 .ruler { font-size: calc(var(--u) * 160); }
+        .line-2 .ruler { font-size: calc(var(--u) * 180); }
+
+        .word {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            color: var(--light);
+            font-size: calc(var(--u) * 131);
+            transition: color 0.45s ease;
+        }
+
+        .f-arial   { font-family: Arial, Helvetica, sans-serif; font-style: normal; }
+        .f-italic  { font-family: Arial, Helvetica, sans-serif; font-style: italic; }
+
+        .c-pink  { color: var(--pink); }
+        .c-light { color: var(--light); }
+
+        /* hover: a palavra assume a cor oposta */
+        .c-pink:hover { color: var(--light); }
+        .c-light:hover { color: var(--pink); }
+
+        /* --- Barras (separadores) --- */
+        .bar {
+            display: block;
+            flex: none;
+            width: calc(var(--u) * 71);
+            height: calc(var(--u) * 12);
+            position: relative;
+            top: calc(var(--u) * 12);
+        }
+
+        .line-2 .bar { height: calc(var(--u) * 10); top: calc(var(--u) * 10); }
+
+        .bar.pink  { background: var(--pink); }
+        .bar.light { background: var(--light); }
+
+        .line-1 .b1 { margin-left: calc(var(--u) * 39); }
+        .line-1 .b2 { margin-left: calc(var(--u) * 2); width: calc(var(--u) * 72); }
+        .line-1 .b3 { margin-left: calc(var(--u) * 2); }
+        .line-1 .w-designer { margin-left: calc(var(--u) * 39); }
+
+        .line-2 .w-creative { margin-left: calc(var(--u) * 3); }
+        .line-2 .bars-2 { position: relative; display: flex; margin-left: calc(var(--u) * 3); }
+        .line-2 .bars-2 .b5 { margin-left: calc(var(--u) * 7); }
+        .line-2 .w-director { margin-left: calc(var(--u) * 4); }
+
+        /* --- Asteriscos: Arial, cor fixa, giram no scroll --- */
+        .star {
+            position: absolute;
+            display: block;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: normal;
+            line-height: 1;
+            pointer-events: none;
+            transform: rotate(calc(var(--base, 0deg) + var(--rot, 0deg)));
+            transform-origin: 50% 26.8%;
+        }
+
+        .star-big {
+            left: calc(var(--u) * 1560);
+            top: calc(var(--u) * -178);
+            font-size: calc(var(--u) * 794);
+            color: var(--light);
+        }
+
+        .star-pink {
+            left: calc(var(--u) * 283);
+            top: calc(var(--u) * 319);
+            font-size: calc(var(--u) * 378);
+            color: var(--pink);
+        }
+
+        .star-mid {
+            left: calc(var(--u) * 945);
+            top: calc(var(--u) * 534);
+            font-size: calc(var(--u) * 274);
+            color: var(--light);
+            --base: 180deg;
+            /* gira o tempo todo, sem depender do scroll */
+            animation: starSpin 8s linear infinite;
+        }
+
+        /* ============ Bento-folio (parte de baixo da página) ============ */
+        /* setinha: indica que tem mais coisa rolando pra baixo */
+        .scroll-hint {
+            position: absolute;
+            left: calc(var(--u) * 960);
+            top: calc(var(--u) * 786);
+            transform: translateX(-50%);
+            font-size: calc(var(--u) * 44);
+            line-height: 1;
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.7;
+            animation: hintBob 1.9s ease-in-out infinite;
+            z-index: 6;
+        }
+
+        .scroll-hint:hover { color: var(--pink); opacity: 1; }
+
+        @keyframes hintBob {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, calc(var(--u) * 14)); }
+        }
+
+        /* ============ Seletor de idioma: PT | EN (topo) ============ */
+        .lang-switch {
+            position: fixed;
+            top: 18px;
+            right: 22px;
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 12px;
+            border: 1px solid rgba(223, 234, 248, 0.35);
+            border-radius: 999px;
+            background: rgba(10, 10, 10, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.12em;
+            user-select: none;
+        }
+
+        .lang-switch button {
+            background: none;
+            border: 0;
+            padding: 2px 7px;
+            font: inherit;
+            letter-spacing: inherit;
+            color: var(--light);
+            opacity: 0.55;
+            transition: opacity 0.25s ease, color 0.25s ease;
+        }
+
+        .lang-switch button:hover { opacity: 1; }
+
+        .lang-switch button.active {
+            color: var(--pink);
+            opacity: 1;
+            font-style: italic;
+        }
+
+        .lang-switch .lang-sep {
+            color: var(--light);
+            opacity: 0.4;
+        }
+
+        /* ============ Cursor: bolinha rosa com efeito negativo ============ */
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+        }
+
+        .cursor-blob {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 26px;
+            height: 26px;
+            margin: -13px 0 0 -13px;
+            border-radius: 50%;
+            background: var(--pink);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            transform: translate3d(-100px, -100px, 0);
+            transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+                        opacity 0.3s ease;
+            will-change: transform;
+        }
+
+        .cursor-blob.on { opacity: 1; }
+
+        .cursor-blob.big {
+            width: 58px;
+            height: 58px;
+            margin: -29px 0 0 -29px;
+        }
+
+        @media (pointer: coarse) {
+            .cursor-blob { display: none; }
+        }
+
+        html { scroll-behavior: smooth; }
+
+        .bento-section {
+            width: 100%;
+            padding: 76px clamp(20px, 3.4vw, 66px) 70px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bento-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 6px;
+        }
+
+        .bento-name {
+            color: var(--light);
+            font-size: 15px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .bento-nav { display: flex; gap: clamp(20px, 2.4vw, 42px); }
+
+        .bento-nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .bento-nav a:hover { color: var(--pink); }
+
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: minmax(400px, auto) minmax(280px, auto);
+            gap: 18px;
+        }
+
+        .bento-card {
+            position: relative;
+            border-radius: 24px;
+            padding: clamp(22px, 2vw, 36px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(223, 234, 248, 0.13);
+            color: var(--light);
+            overflow: hidden;
+            transition: transform 0.35s ease, background-color 0.35s ease,
+                        border-color 0.35s ease, color 0.35s ease;
+        }
+
+        /* todos os cards ficam rosa no hover */
+        .bento-card:hover {
+            background: var(--pink);
+            border-color: var(--pink);
+            color: #0a0a0a;
+            transform: translateY(-6px);
+        }
+
+        .bento-card:hover em,
+        .bento-card:hover .bento-star,
+        .bento-card:hover .card-label { color: #0a0a0a; }
+
+        .bento-card:hover .card-bio p { color: rgba(10, 10, 10, 0.8); }
+
+        /* card de destaque: título grande */
+        .card-intro {
+            grid-column: 1 / 9;
+            grid-row: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .intro-title {
+            font-size: clamp(30px, 3.3vw, 64px);
+            font-weight: 400;
+            line-height: 1.06;
+            letter-spacing: -0.015em;
+        }
+
+        .intro-title em { font-style: italic; color: var(--pink); }
+
+        .bento-star {
+            position: absolute;
+            top: clamp(16px, 1.8vw, 34px);
+            right: clamp(24px, 2.4vw, 48px);
+            font-size: clamp(46px, 4.6vw, 92px);
+            line-height: 1;
+            color: var(--pink);
+            transform-origin: 50% 44%;
+            animation: starSpin 9s linear infinite;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* foto: mesma altura do card de título (esticada pela linha do grid) */
+        .card-foto {
+            grid-column: 9 / 13;
+            grid-row: 1;
+            padding: 0;
+            display: flex;
+        }
+
+        .card-foto img {
+            display: block;
+            width: 100%;
+            height: auto;
+            flex: 1 1 auto;
+            min-height: 0;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.45s ease;
+        }
+
+        /* hover: o retângulo fica rosa e a foto recua mostrando a borda */
+        .card-foto:hover img { transform: scale(0.93); }
+
+        /* bio */
+        .card-bio {
+            grid-column: 1 / 7;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card-label {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--pink);
+        }
+
+        .card-bio p {
+            font-size: clamp(14px, 1.05vw, 17px);
+            line-height: 1.6;
+            color: rgba(223, 234, 248, 0.82);
+        }
+
+        /* link: projetos (behance) */
+        .card-projetos {
+            grid-column: 7 / 13;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 10px;
+            min-height: 240px;
+            text-decoration: none;
+        }
+
+        /* posters: pastas verticais abaixo do bento */
+        .posters-section {
+            width: 100%;
+            padding: 60px clamp(20px, 3.4vw, 66px) 100px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .folders {
+            display: flex;
+            align-items: flex-end;
+            gap: 0;
+            flex-wrap: wrap;
+            row-gap: 16px;
+            /* compensa o margin-left negativo da primeira pasta de cada linha */
+            padding-left: clamp(24px, 1.6vw, 30px);
+        }
+
+        /* overlap: cada pasta cobre o fim da anterior (a da direita fica por cima) */
+        .folders > .folder:first-child { margin-left: calc(-1 * clamp(24px, 1.6vw, 30px)); }
+        .folder + .folder { margin-left: clamp(-30px, -1.6vw, -24px); }
+        .folder:nth-child(1) { z-index: 1; }
+        .folder:nth-child(2) { z-index: 2; }
+        .folder:nth-child(3) { z-index: 3; }
+        .folder:nth-child(4) { z-index: 4; }
+        .folder:nth-child(5) { z-index: 5; }
+        .folder:nth-child(6) { z-index: 6; }
+        .folder:nth-child(7) { z-index: 7; }
+        .folder:nth-child(8) { z-index: 8; }
+
+        .folder {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            /* altura da pasta (usada também na expansão do clique) */
+            --fh: clamp(420px, 46vw, 660px);
+            height: var(--fh);
+            /* largura da capa (spine) da pasta */
+            --f: clamp(36px, 2.4vw, 46px);
+            cursor: pointer;
+            outline: none;
+            /* drop shadow atrás da pasta: cai sobre a pasta anterior (atrás), não afeta o fundo */
+            box-shadow: -8px 14px 28px rgba(0, 0, 0, 0.55);
+            border-radius: 4px 10px 10px 4px;
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* primeira pasta: capa larga com o rótulo "Posters" (mesmas medidas da referência: 260px) */
+        .folders > .folder:first-child { --f: clamp(170px, 13.5vw, 260px); }
+
+        .folder:hover { transform: translateY(-8px); }
+        .folder:focus-visible { box-shadow: -12px 16px 34px rgba(0, 0, 0, 0.55), 0 0 0 2px var(--pink); }
+
+        .folder-tab {
+            position: absolute;
+            top: 0;
+            left: var(--f);
+            width: clamp(34px, 2.6vw, 50px);
+            height: 22%;
+            background: var(--pink);
+            border-radius: 0 10px 10px 0;
+            z-index: 3;
+        }
+
+        /* abas em posições aleatórias — não todas no topo */
+        .folder:nth-child(1) .folder-tab { top: 4%; }
+        .folder:nth-child(2) .folder-tab { top: 38%; }
+        .folder:nth-child(3) .folder-tab { top: 14%; }
+        .folder:nth-child(4) .folder-tab { top: 57%; }
+        .folder:nth-child(5) .folder-tab { top: 26%; }
+        .folder:nth-child(6) .folder-tab { top: 71%; }
+        .folder:nth-child(7) .folder-tab { top: 9%; }
+        .folder:nth-child(8) .folder-tab { top: 47%; }
+
+        .folder-front {
+            position: relative;
+            z-index: 2;
+            width: var(--f);
+            background: var(--pink);
+            border-radius: 4px 0 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+        }
+
+        .folder-label {
+            writing-mode: vertical-rl;
+            color: var(--light);
+            /* mesmo tamanho da fonte do título da primeira página (hero) */
+            font-size: calc(var(--u) * 131);
+            letter-spacing: 0.04em;
+            user-select: none;
+        }
+
+        /* rótulo no topo da capa e alinhado à esquerda, como na referência (não centralizado) */
+        .folders > .folder:first-child .folder-front {
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: clamp(24px, 3vw, 56px);
+            padding-left: 9%;
+        }
+
+        /* pastas brancas alternadas (rosa e branco, como na referência) */
+        .folder:nth-child(even) .folder-front { background: var(--light); }
+        .folder:nth-child(even) .folder-tab { background: var(--light); }
+
+        .folder-sheet {
+            display: block;
+            overflow: hidden;
+            width: clamp(72px, 6.4vw, 122px);
+            border-radius: 0 8px 8px 0;
+            transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .folder-sheet img {
+            display: block;
+            height: 100%;
+            width: auto;
+            max-width: none;
+        }
+
+        /* hover: expande um pouco, mas não completamente */
+        .folder:hover .folder-sheet { width: clamp(150px, 11vw, 210px); }
+
+        /* clique: expande mostrando o pôster completo */
+        .folder.open .folder-sheet { width: calc(var(--fh) * var(--r)); }
+        .folder.open { z-index: 20; transform: translateY(-8px); }
+        .folder:hover { z-index: 15; }
+
+        /* chat: seção final da página, sem visual de card bento */
+        .chat-section {
+            width: 100%;
+            padding: 30px clamp(20px, 3.4vw, 66px) 120px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .chat-wrap {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .card-chat {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(16px, 1.6vw, 24px);
+            width: min(760px, 100%);
+            min-height: 340px;
+            padding: clamp(26px, 2.4vw, 42px);
+            color: var(--light);
+        }
+
+        .chat-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .chat-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--pink);
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .chat-id { display: flex; flex-direction: column; gap: 3px; }
+
+        .chat-name {
+            font-size: 17px;
+            letter-spacing: 0.06em;
+            color: var(--light);
+        }
+
+        .chat-status {
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--pink);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-status::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--pink);
+        }
+
+        .chat-thread {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0;
+            margin-top: auto;
+        }
+
+        /* indicador "digitando..." antes de cada mensagem —
+           quando oculto colapsa (não ocupa espaço), então as
+           mensagens ficam coladas umas nas outras */
+        .typing {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 0;
+            max-height: 0;
+            padding: 0 20px;
+            overflow: hidden;
+            border-radius: 16px 16px 4px 16px;
+            background: rgba(223, 234, 248, 0.12);
+            opacity: 0;
+            transform: translateY(16px) scale(0.94);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                        max-height 0.4s ease, padding 0.4s ease, margin-top 0.4s ease;
+        }
+
+        .typing.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            max-height: 64px;
+            padding: 16px 20px;
+            margin-top: 14px;
+        }
+
+        .typing i {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--light);
+            animation: typingDot 1.2s ease-in-out infinite;
+        }
+
+        .typing i:nth-child(2) { animation-delay: 0.18s; }
+        .typing i:nth-child(3) { animation-delay: 0.36s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .bubble {
+            max-width: 82%;
+            margin-top: 14px;
+            padding: 16px 22px;
+            font-size: clamp(15px, 1.15vw, 19px);
+            line-height: 1.45;
+            border-radius: 16px 16px 4px 16px;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.5s ease,
+                        background-color 0.35s ease,
+                        color 0.35s ease;
+            opacity: 0;
+            transform: translateY(16px) scale(0.94);
+            pointer-events: none;
+        }
+
+        .bubble.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .bubble-1 {
+            background: var(--pink);
+            color: #0a0a0a;
+        }
+
+        .bubble-2 {
+            background: var(--light);
+            color: #0a0a0a;
+        }
+
+        .bubble-2 a {
+            color: #0a0a0a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .bubble-2 a:hover { color: var(--pink); }
+
+        .card-arrow {
+            position: absolute;
+            top: clamp(16px, 1.5vw, 26px);
+            right: clamp(24px, 2vw, 36px);
+            font-size: clamp(24px, 2vw, 34px);
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .card-projetos:hover .card-arrow { transform: translate(5px, -5px); }
+
+        .card-big {
+            font-size: clamp(34px, 3vw, 56px);
+            line-height: 1;
+            letter-spacing: -0.015em;
+        }
+
+        .card-sub {
+            font-size: 13px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.65;
+        }
+
+        @media (max-width: 1100px) {
+            .bento { grid-template-columns: repeat(6, 1fr); grid-template-rows: none; }
+            .card-intro { grid-column: 1 / 7; grid-row: auto; min-height: 300px; }
+            .card-foto  { grid-column: 1 / 7; grid-row: auto; }
+            .card-bio,
+            .card-projetos { grid-column: span 3; grid-row: auto; }
+            .folder { --fh: 460px; }
+        }
+
+        @media (max-width: 700px) {
+            .bento { grid-template-columns: 1fr; }
+            .bento-card { grid-column: 1 / -1; grid-row: auto; }
+            .bento-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+            .folders { row-gap: 18px; }
+            .folder { --fh: 340px; }
+            .folders > .folder:first-child { --f: 90px; }
+        }
+
+
+
+        @keyframes starSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <noscript>
+        <style>
+            #loader { display: none !important; }
+            .page { opacity: 1 !important; }
+        </style>
+    </noscript>
+</head>
+<body>
+
+    <div id="loader">
+        <svg class="loader-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="#f45fa1">
+                <rect x="39" y="7" width="22" height="86"></rect>
+                <rect x="39" y="7" width="22" height="86" transform="rotate(60 50 50)"></rect>
+                <rect x="39" y="7" width="22" height="86" transform="rotate(120 50 50)"></rect>
+            </g>
+        </svg>
+    </div>
+
+    <main class="page">
+
+        <!-- seletor de idioma: PT | EN -->
+        <div class="lang-switch" role="group" aria-label="idioma / language">
+            <button type="button" data-lang="pt" class="active">PT</button>
+            <span class="lang-sep" aria-hidden="true">|</span>
+            <button type="button" data-lang="en">EN</button>
+        </div>
+
+        <!-- ================= TELA 1: hero ================= -->
+        <section class="hero">
+            <div class="stage">
+                <span class="star star-big" aria-hidden="true">*</span>
+                <span class="star star-pink" aria-hidden="true">*</span>
+                <span class="star star-mid" aria-hidden="true">*</span>
+
+                <div class="line line-1">
+                    <span class="ruler" aria-hidden="true">Hg</span>
+                    <span class="word w-graphic f-arial c-light">graphic</span>
+                    <i class="bar pink b1"></i>
+                    <i class="bar pink b2"></i>
+                    <i class="bar light b3"></i>
+                    <span class="word w-designer f-italic c-pink">designer</span>
+                </div>
+
+                <div class="line line-2">
+                    <span class="ruler" aria-hidden="true">Hg</span>
+                    <i class="bar light"></i>
+                    <span class="word w-creative f-italic c-pink">creative</span>
+                    <span class="bars-2">
+                        <i class="bar light"></i>
+                        <i class="bar pink b5"></i>
+                    </span>
+                    <span class="word w-director f-arial c-light">director</span>
+                </div>
+
+                <a class="scroll-hint" href="#bento" aria-label="role para baixo" data-i18n-aria="hintAria">&#8595;</a>
+            </div>
+        </section>
+
+        <!-- ================= PARTE DE BAIXO: bento-folio ================= -->
+        <section class="bento-section" id="bento">
+            <header class="bento-header">
+                <span class="bento-name">ronaldo reiser</span>
+                <nav class="bento-nav">
+                    <a href="https://www.behance.net/ronaldoreiser" target="_blank" rel="noopener" data-i18n="navProjects">projetos</a>
+                    <a href="#bio" data-i18n="navAbout">sobre</a>
+                    <a href="mailto:rnldreiser@gmail.com" data-i18n="navContact">contato</a>
+                </nav>
+            </header>
+
+            <div class="bento">
+                <div class="bento-card card-intro">
+                    <span class="bento-star" aria-hidden="true">*</span>
+                    <h2 class="intro-title" data-i18n="introTitle">identidade visual, <em>branding</em> e design digital</h2>
+                </div>
+
+                <figure class="bento-card card-foto">
+                    <img src="eu2.png" alt="Ronaldo Reiser">
+                </figure>
+
+                <div class="bento-card card-bio" id="bio">
+                    <span class="card-label" data-i18n="bioLabel">sobre</span>
+                    <p data-i18n="bioText">Designer gráfico com 5 anos de experiência em identidade visual, branding e design digital — do briefing à entrega final, próximo aos times de marketing, conteúdo e produto, traduzindo estratégia em soluções visuais consistentes em todos os canais.</p>
+                </div>
+
+                <a class="bento-card card-projetos" href="https://www.behance.net/ronaldoreiser" target="_blank" rel="noopener">
+                    <span class="card-arrow" aria-hidden="true">&#8599;</span>
+                    <span class="card-big" data-i18n="projectsBig">projetos</span>
+                    <span class="card-sub" data-i18n="projectsSub">portfólio no behance</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ================= POSTERS: pastas verticais ================= -->
+        <section class="posters-section" id="posters">
+            <div class="folders">
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.707">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"><span class="folder-label">Posters</span></span>
+                    <span class="folder-sheet"><img src="posters/POSTER1 1.png" alt="Poster 1"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.706">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/POSTER3 1.png" alt="Poster 2"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.801">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/mayhem post2 1.png" alt="Poster 3"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.798">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/EVANGELICAL 1.png" alt="Poster 4"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.708">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/f9fdb0181002895.6514410d16a8c 1.png" alt="Poster 5"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.708">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/e73a70175248129.64b0145f1f9f3 1.png" alt="Poster 6"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.707">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/allie x.png" alt="Poster 7 — Allie X"></span>
+                </div>
+                <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.8">
+                    <span class="folder-tab" aria-hidden="true"></span>
+                    <span class="folder-front"></span>
+                    <span class="folder-sheet"><img src="posters/342fa6190798751.65c1305a5be59 1.png" alt="Poster 8"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CHAT: final da página, sem bordas de card ================= -->
+        <section class="chat-section">
+            <div class="chat-wrap">
+                <div class="card-chat">
+                    <div class="chat-head">
+                        <span class="chat-avatar" aria-hidden="true">R</span>
+                        <span class="chat-id">
+                            <span class="chat-name">ronaldo reiser</span>
+                            <span class="chat-status" data-i18n="chatStatus">online agora</span>
+                        </span>
+                    </div>
+                    <div class="chat-thread">
+                        <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span class="bubble bubble-1" data-i18n="bubble1">tem algum projeto em mente?</span>
+                        <span class="typing typing-2" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span class="bubble bubble-2" data-i18n="bubble2"><a href="mailto:rnldreiser@gmail.com">fale comigo</a></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="cursor-blob" aria-hidden="true"></div>
+
+    <script>
+        // ----- Tela de carregamento: asterisco girando + fade in -----
+        (function () {
+            const loader = document.getElementById('loader');
+            const MIN_SHOW = 2400;   // tempo mínimo da tela de carregamento
+            const MAX_WAIT = 5000;   // garante que o site abra mesmo com imagens lentas
+            const start = Date.now();
+            let revealed = false;
+
+            function reveal() {
+                if (revealed) return;
+                revealed = true;
+                loader.classList.add('hidden');
+                document.body.classList.add('loaded');
+                setTimeout(() => { loader.style.display = 'none'; }, 800);
+            }
+
+            window.addEventListener('load', () => {
+                setTimeout(reveal, Math.max(0, MIN_SHOW - (Date.now() - start)));
+            });
+            setTimeout(reveal, MAX_WAIT);
+        })();
+
+        // ----- Idioma: PT | EN (o hero fica sempre em inglês) -----
+        const I18N = {
+            pt: {
+                navProjects: 'projetos',
+                navAbout: 'sobre',
+                navContact: 'contato',
+                introTitle: 'identidade visual, <em>branding</em> e design digital',
+                bioLabel: 'sobre',
+                bioText: 'Designer gráfico com 5 anos de experiência em identidade visual, branding e design digital — do briefing à entrega final, próximo aos times de marketing, conteúdo e produto, traduzindo estratégia em soluções visuais consistentes em todos os canais.',
+                projectsBig: 'projetos',
+                projectsSub: 'portfólio no behance',
+                chatStatus: 'online agora',
+                bubble1: 'tem algum projeto em mente?',
+                bubble2: '<a href="mailto:rnldreiser@gmail.com">fale comigo</a>',
+                hintAria: 'role para baixo'
+            },
+            en: {
+                navProjects: 'projects',
+                navAbout: 'about',
+                navContact: 'contact',
+                introTitle: 'visual identity, <em>branding</em> & digital design',
+                bioLabel: 'about',
+                bioText: 'Graphic designer with 5 years of experience in visual identity, branding and digital design — from briefing to final delivery, working alongside marketing, content and product teams, translating strategy into consistent visual solutions across every channel.',
+                projectsBig: 'projects',
+                projectsSub: 'portfolio on behance',
+                chatStatus: 'online now',
+                bubble1: 'got a project in mind?',
+                bubble2: '<a href="mailto:rnldreiser@gmail.com">get in touch</a>',
+                hintAria: 'scroll down'
+            }
+        };
+
+        function setLang(lang) {
+            const dict = I18N[lang];
+            if (!dict) return;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) el.innerHTML = dict[key];
+            });
+            document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+                const key = el.getAttribute('data-i18n-aria');
+                if (dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
+            });
+            document.querySelectorAll('.lang-switch button').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-br' : 'en');
+        }
+
+        document.querySelectorAll('.lang-switch button').forEach(btn => {
+            btn.addEventListener('click', () => setLang(btn.getAttribute('data-lang')));
+        });
+
+        // ----- Asteriscos giram conforme o scroll -----
+        // (o star-mid, entre creative e director, fica girando sozinho via CSS)
+        const stars = Array.from(document.querySelectorAll('.star'));
+        function rotateStars() {
+            const y = window.scrollY || window.pageYOffset || 0;
+            for (let i = 0; i < stars.length; i++) {
+                if (stars[i].classList.contains('star-mid')) continue;
+                const dir = (i % 2 === 0) ? 1 : -1;
+                stars[i].style.setProperty('--rot', (y * 0.16 * dir).toFixed(2) + 'deg');
+            }
+        }
+        window.addEventListener('scroll', rotateStars, { passive: true });
+        rotateStars();
+
+        // ----- Chat: mensagens aparecem conforme o usuário rola para baixo -----
+        // cada mensagem tem um tempo de "digitando..." antes de aparecer
+        const chatCard = document.querySelector('.card-chat');
+        const typing1 = document.querySelector('.typing:not(.typing-2)');
+        const typing2 = document.querySelector('.typing-2');
+        const bubble1 = document.querySelector('.bubble-1');
+        const bubble2 = document.querySelector('.bubble-2');
+        const TYPE_MS = 900; // quanto tempo fica "digitando"
+        let chatTimers = [];
+
+        function clearChatTimers() {
+            chatTimers.forEach(clearTimeout);
+            chatTimers = [];
+        }
+
+        // stage: 0 = nada, 1 = digitando msg1, 2 = msg1 visível,
+        //        3 = digitando msg2, 4 = msg2 visível
+        let chatStage = 0;
+        let chatTarget = 0; // alvo desejado (0..2)
+
+        function setChatStage(target) {
+            chatTarget = target;
+            if (target === 0) {
+                clearChatTimers();
+                typing1.classList.remove('show');
+                typing2.classList.remove('show');
+                bubble1.classList.remove('show');
+                bubble2.classList.remove('show');
+                chatStage = 0;
+                return;
+            }
+            // rolou pra cima antes da msg2: cancela a msg2
+            if (target < 2 && chatStage >= 3) {
+                clearChatTimers();
+                typing2.classList.remove('show');
+                bubble2.classList.remove('show');
+                chatStage = 2;
+            }
+            // avança passo a passo até o alvo (cada passo tem seu "digitando")
+            if (chatStage === 0) {
+                typing1.classList.add('show');
+                chatStage = 1;
+                chatTimers.push(setTimeout(() => {
+                    typing1.classList.remove('show');
+                    bubble1.classList.add('show');
+                    chatStage = 2;
+                    if (chatTarget >= 2) setChatStage(chatTarget);
+                }, TYPE_MS));
+            } else if (chatStage === 2 && target >= 2) {
+                typing2.classList.add('show');
+                chatStage = 3;
+                chatTimers.push(setTimeout(() => {
+                    typing2.classList.remove('show');
+                    bubble2.classList.add('show');
+                    chatStage = 4;
+                }, TYPE_MS));
+            }
+        }
+
+        function updateChat() {
+            if (!chatCard) return;
+            const r = chatCard.getBoundingClientRect();
+            // 0 = card ainda fora de vista, 1 = card totalmente visível
+            const vis = Math.min(Math.max((window.innerHeight - r.top) / r.height, 0), 1);
+            const target = vis >= 1 ? 2 : (vis >= 0.5 ? 1 : 0);
+            setChatStage(target);
+        }
+        window.addEventListener('scroll', updateChat, { passive: true });
+        window.addEventListener('resize', updateChat);
+        window.addEventListener('load', updateChat);
+        updateChat();
+
+        // ----- Pastas de posters: hover expande pouco, clique expande tudo -----
+        (function () {
+            const folders = document.querySelectorAll('.folder');
+            function closeAll(except) {
+                folders.forEach(f => {
+                    if (f !== except) { f.classList.remove('open'); f.setAttribute('aria-expanded', 'false'); }
+                });
+            }
+            folders.forEach(f => {
+                f.addEventListener('click', () => {
+                    const willOpen = !f.classList.contains('open');
+                    closeAll(f);
+                    f.classList.toggle('open', willOpen);
+                    f.setAttribute('aria-expanded', String(willOpen));
+                });
+                f.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f.click(); }
+                });
+            });
+        })();
+
+        // ----- Cursor: bolinha rosa com efeito negativo (mix-blend-mode) -----
+        (function () {
+            const blob = document.querySelector('.cursor-blob');
+            if (!blob || !window.matchMedia('(pointer: fine)').matches) return;
+            let x = -100, y = -100, tx = -100, ty = -100, shown = false;
+            const BIG = 'a, button, .bento-card, .word, .scroll-hint, .desktop-icon, .folder';
+
+            window.addEventListener('mousemove', e => {
+                tx = e.clientX; ty = e.clientY;
+                if (!shown) { shown = true; x = tx; y = ty; blob.classList.add('on'); }
+                blob.classList.toggle('big', !!(e.target.closest && e.target.closest(BIG)));
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', () => { blob.classList.remove('on'); });
+            document.addEventListener('mouseenter', () => { if (shown) blob.classList.add('on'); });
+
+            (function follow() {
+                x += (tx - x) * 0.28;
+                y += (ty - y) * 0.28;
+                blob.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+                requestAnimationFrame(follow);
+            })();
+        })();
+    </script>
+</body>
+</html>
