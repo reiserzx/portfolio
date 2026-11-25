@@ -19,7 +19,7 @@ python -m http.server
 - `index.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
 - `assets/` — mídia geral do site: `foto.png` (foto do bento), `fonts/` (fontes extras) e `icons/` (favicons)
 - `projects/` — mídia de cada projeto:
-  - `posters/` — pôsteres da seção de pastas
+  - `posters/` — pôsteres da seção de pastas: `webp/` (versões otimizadas usadas no site) e `source/` (PNGs originais em alta)
   - `sofazinho/` — fotos do carrossel, símbolo do sofá (`sofazinho.svg`) e fontes Redaction (`fonts/`)
   - `uqbar/` — logo e fotos do carrossel
 - `refs/` — imagens de referência usadas no design
@@ -29,7 +29,7 @@ python -m http.server
 - Tela de carregamento com asterisco girando (o mesmo asterisco rosa é o favicon)
 - Hero com tipografia Arial, pares de palavras que trocam cor/itálico no hover
 - Seção bento (introdução, foto, bio e link pro Behance)
-- Pastas de posters em estilo arquivo: abas em alturas aleatórias, sobreposição, sombra, expande no hover e abre o pôster inteiro no clique (no **mobile/tablet** os pôsteres viram carrossel, igual Sofazinho/Uqbar)
+- Pastas de posters em estilo arquivo: abas em alturas aleatórias, sobreposição, sombra, expande no hover e abre o pôster inteiro no clique (no **mobile/tablet** os pôsteres viram carrossel, igual Sofazinho/Uqbar, com título `( Posters )` entre parênteses que piscam e uma descrição curta)
 - Seção **Sofazinho Club**: logo com fontes Redaction (pesos misturados), símbolo do sofá em SVG que alterna rosa ↔ claro com efeito de pop, tags, descrição e carrossel infinito de fotos
 - Seção **Uqbar**: logo entre parênteses que alternam azul claro ↔ rosa, tags, descrição e carrossel infinito de fotos
 - Carrosséis com movimento automático que **pausam no hover e podem ser arrastados** pro lado (mouse e toque)
