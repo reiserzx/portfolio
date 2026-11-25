@@ -717,7 +717,12 @@
         .sz-carousel {
             margin: clamp(40px, 4.5vw, 70px) calc(-1 * clamp(20px, 3.4vw, 66px)) 0;
             overflow: hidden;
+            touch-action: pan-y;      /* deixa o arraste horizontal pra JS, rolagem vertical pro navegador */
+            cursor: grab;
+            user-select: none;
         }
+
+        .sz-carousel.dragging { cursor: grabbing; }
 
         .sz-track {
             display: flex;
@@ -734,6 +739,7 @@
             margin-right: clamp(14px, 1.6vw, 30px);
             border-radius: clamp(8px, 0.8vw, 14px);
             object-fit: cover;
+            -webkit-user-drag: none;
         }
 
         @keyframes szScroll {
@@ -1490,6 +1496,76 @@
             } else {
                 start();
             }
+        })();
+
+        // ----- Carrosséis (Sofazinho e Uqbar): movimento automático + arrastar pro lado -----
+        (function () {
+            document.querySelectorAll('.sz-carousel').forEach(function (box) {
+                const track = box.querySelector('.sz-track');
+                if (!track) return;
+                track.style.animation = 'none';   // JS assume o controle (CSS fica de fallback)
+                const dur = track.classList.contains('uq-track') ? 85 : 60; // segundos por volta
+                let half = 0, x = 0, last = 0;
+                let hover = false, dragging = false, startX = 0, startTx = 0;
+
+                function norm(v) {
+                    if (!half) return 0;
+                    v = v % half;
+                    if (v > 0) v -= half;   // mantém em [-half, 0)
+                    return v;
+                }
+                function apply() {
+                    track.style.transform = 'translateX(' + x + 'px)';
+                }
+                function measure() {
+                    const hw = track.scrollWidth / 2;   // pista = 2 cópias iguais
+                    if (hw > 1) { half = hw; x = norm(x); apply(); }
+                }
+                function step(t) {
+                    if (!last) last = t;
+                    const dt = Math.min((t - last) / 1000, 0.25);
+                    last = t;
+                    if (half > 0 && !dragging && !hover) {
+                        x = norm(x - (half / dur) * dt);
+                        apply();
+                    }
+                    requestAnimationFrame(step);
+                }
+
+                measure();
+                requestAnimationFrame(step);
+                if ('ResizeObserver' in window) new ResizeObserver(measure).observe(track);
+                window.addEventListener('resize', measure);
+                track.querySelectorAll('img').forEach(function (im) {
+                    if (!im.complete) im.addEventListener('load', measure, { once: true });
+                });
+
+                // passar o mouse por cima pausa (como fazia o CSS)
+                box.addEventListener('mouseenter', function () { hover = true; });
+                box.addEventListener('mouseleave', function () { hover = false; });
+
+                // arrastar com mouse ou toque
+                box.addEventListener('pointerdown', function (e) {
+                    if (e.button && e.button !== 0) return;   // só botão principal / toque
+                    dragging = true;
+                    startX = e.clientX;
+                    startTx = x;
+                    box.classList.add('dragging');
+                    try { box.setPointerCapture(e.pointerId); } catch (err) {}
+                });
+                box.addEventListener('pointermove', function (e) {
+                    if (!dragging) return;
+                    x = norm(startTx + (e.clientX - startX));
+                    apply();
+                });
+                function endDrag() {
+                    dragging = false;
+                    box.classList.remove('dragging');
+                }
+                box.addEventListener('pointerup', endDrag);
+                box.addEventListener('pointercancel', endDrag);
+                box.addEventListener('dragstart', function (e) { e.preventDefault(); });
+            });
         })();
 
         // ----- Cursor: bolinha rosa com efeito negativo (mix-blend-mode) -----
