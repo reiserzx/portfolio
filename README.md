@@ -17,7 +17,7 @@ python -m http.server
 ## Estrutura
 
 - `index.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
-- `assets/` — mídia geral do site: `foto.png` (foto do bento) e `fonts/` (fontes extras)
+- `assets/` — mídia geral do site: `foto.png` (foto do bento), `fonts/` (fontes extras) e `icons/` (favicons)
 - `projects/` — mídia de cada projeto:
   - `posters/` — pôsteres da seção de pastas
   - `sofazinho/` — fotos do carrossel, símbolo do sofá (`sofazinho.svg`) e fontes Redaction (`fonts/`)
@@ -26,7 +26,7 @@ python -m http.server
 
 ## O que tem na página
 
-- Tela de carregamento com asterisco girando
+- Tela de carregamento com asterisco girando (o mesmo asterisco rosa é o favicon)
 - Hero com tipografia Arial, pares de palavras que trocam cor/itálico no hover
 - Seção bento (introdução, foto, bio e link pro Behance)
 - Pastas de posters em estilo arquivo: abas em alturas aleatórias, sobreposição, sombra, expande no hover e abre o pôster inteiro no clique
