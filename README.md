@@ -2,7 +2,7 @@
 
 Portfólio pessoal em página única, feito só com **HTML + CSS + JS puro** (sem build, sem dependências).
 
-**No ar:** https://reiserzx.github.io/site-portfolio/
+**No ar:** https://reiserzx.github.io/portfolio/
 
 ## Como rodar
 
