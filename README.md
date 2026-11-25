@@ -2,9 +2,11 @@
 
 Portfólio pessoal em página única, feito só com **HTML + CSS + JS puro** (sem build, sem dependências).
 
+**No ar:** https://reiserzx.github.io/site-portfolio/
+
 ## Como rodar
 
-Abra `portfolio.html` direto no navegador, ou sirva a pasta com qualquer servidor estático:
+Abra `index.html` direto no navegador, ou sirva a pasta com qualquer servidor estático:
 
 ```bash
 npx serve .
@@ -14,7 +16,7 @@ python -m http.server
 
 ## Estrutura
 
-- `portfolio.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
+- `index.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
 - `posters/` — imagens dos pôsteres da seção de pastas
 - `Sofazinho/` — logo em SVG, fontes Redaction e fotos do carrossel do Sofazinho Club
 - `Uqbar/` — logo e fotos do carrossel da Uqbar
