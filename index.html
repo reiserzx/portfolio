@@ -750,6 +750,14 @@
             to   { transform: translateX(-50%); }
         }
 
+        /* --- posters no mobile: mesmo carrossel do Sofazinho/Uqbar (as pastas ficam no desktop) --- */
+        .posters-head,
+        .posters-carousel { display: none; }
+
+        .posters-carousel { margin: clamp(20px, 2.4vw, 34px) calc(-1 * clamp(20px, 3.4vw, 66px)) 0; }
+
+        .posters-track img { height: clamp(300px, 66vw, 470px); }
+
         /* ============ Uqbar: logo entre parênteses, tags, descrição e carrossel ============ */
         .uq-section {
             width: 100%;
@@ -987,13 +995,28 @@
             .uq-logo { --lh: calc(var(--u) * 140); }
         }
 
+        /* posters: no mobile/tablet viram carrossel (igual Sofazinho/Uqbar); as pastas ficam no desktop */
+        @media (max-width: 860px) {
+            .folders { display: none; }
+
+            .posters-head {
+                display: block;
+                margin: 0;
+                padding: 0;
+                font-size: clamp(40px, 12.5vw, 64px);
+                font-weight: 400;
+                line-height: 1;
+                letter-spacing: -0.02em;
+                color: var(--pink);
+            }
+
+            .posters-carousel { display: block; }
+        }
+
         @media (max-width: 700px) {
             .bento { grid-template-columns: 1fr; }
             .bento-card { grid-column: 1 / -1; grid-row: auto; }
             .bento-header { flex-direction: column; align-items: flex-start; gap: 14px; }
-            .folders { row-gap: 18px; }
-            .folder { --fh: 340px; }
-            .folders > .folder:first-child { --f: 90px; }
             .sz-logo { gap: 16px; }
             .sz-type { --ls: 30px; }
             .sz-line2 { padding-left: calc(var(--ls) * 2.4); }
@@ -1101,48 +1124,70 @@
             </div>
         </section>
 
-        <!-- ================= POSTERS: pastas verticais ================= -->
+        <!-- ================= POSTERS: pastas verticais (desktop) / carrossel (mobile) ================= -->
         <section class="posters-section" id="posters">
+            <h2 class="posters-head">Posters</h2>
             <div class="folders">
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.707">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"><span class="folder-label">Posters</span></span>
-                    <span class="folder-sheet"><img src="projects/posters/POSTER1 1.png" alt="Poster 1"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/POSTER1 1.png" alt="Poster 1"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.706">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/POSTER3 1.png" alt="Poster 2"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/POSTER3 1.png" alt="Poster 2"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.801">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/mayhem post2 1.png" alt="Poster 3"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/mayhem post2 1.png" alt="Poster 3"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.798">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/EVANGELICAL 1.png" alt="Poster 4"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/EVANGELICAL 1.png" alt="Poster 4"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.708">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/f9fdb0181002895.6514410d16a8c 1.png" alt="Poster 5"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/f9fdb0181002895.6514410d16a8c 1.png" alt="Poster 5"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.708">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/e73a70175248129.64b0145f1f9f3 1.png" alt="Poster 6"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/e73a70175248129.64b0145f1f9f3 1.png" alt="Poster 6"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.707">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/allie x.png" alt="Poster 7 — Allie X"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/allie x.png" alt="Poster 7 — Allie X"></span>
                 </div>
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.8">
                     <span class="folder-tab" aria-hidden="true"></span>
                     <span class="folder-front"></span>
-                    <span class="folder-sheet"><img src="projects/posters/342fa6190798751.65c1305a5be59 1.png" alt="Poster 8"></span>
+                    <span class="folder-sheet"><img loading="lazy" src="projects/posters/342fa6190798751.65c1305a5be59 1.png" alt="Poster 8"></span>
+                </div>
+            </div>
+
+            <div class="sz-carousel posters-carousel" aria-label="posters">
+                <div class="sz-track posters-track">
+                    <img src="projects/posters/POSTER1 1.png" alt="Poster 1" loading="lazy">
+                    <img src="projects/posters/POSTER3 1.png" alt="Poster 2" loading="lazy">
+                    <img src="projects/posters/mayhem post2 1.png" alt="Poster 3" loading="lazy">
+                    <img src="projects/posters/EVANGELICAL 1.png" alt="Poster 4" loading="lazy">
+                    <img src="projects/posters/f9fdb0181002895.6514410d16a8c 1.png" alt="Poster 5" loading="lazy">
+                    <img src="projects/posters/e73a70175248129.64b0145f1f9f3 1.png" alt="Poster 6" loading="lazy">
+                    <img src="projects/posters/allie x.png" alt="Poster 7 — Allie X" loading="lazy">
+                    <img src="projects/posters/342fa6190798751.65c1305a5be59 1.png" alt="Poster 8" loading="lazy">
+                    <img src="projects/posters/POSTER1 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/POSTER3 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/mayhem post2 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/EVANGELICAL 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/f9fdb0181002895.6514410d16a8c 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/e73a70175248129.64b0145f1f9f3 1.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/allie x.png" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/posters/342fa6190798751.65c1305a5be59 1.png" alt="" aria-hidden="true" loading="lazy">
                 </div>
             </div>
         </section>
@@ -1501,13 +1546,15 @@
             }
         })();
 
-        // ----- Carrosséis (Sofazinho e Uqbar): movimento automático + arrastar pro lado -----
+        // ----- Carrosséis (Sofazinho, Uqbar e posters no mobile): movimento automático + arrastar pro lado -----
         (function () {
             document.querySelectorAll('.sz-carousel').forEach(function (box) {
                 const track = box.querySelector('.sz-track');
                 if (!track) return;
                 track.style.animation = 'none';   // JS assume o controle (CSS fica de fallback)
-                const dur = track.classList.contains('uq-track') ? 85 : 60; // segundos por volta
+                // segundos por volta (só vale quando o carrossel está visível)
+                const dur = track.classList.contains('posters-track') ? 35
+                    : track.classList.contains('uq-track') ? 85 : 60;
                 let half = 0, x = 0, last = 0;
                 let hover = false, dragging = false, startX = 0, startTx = 0;
 
