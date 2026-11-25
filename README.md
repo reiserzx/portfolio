@@ -17,6 +17,7 @@ python -m http.server
 - `portfolio.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
 - `posters/` — imagens dos pôsteres da seção de pastas
 - `Sofazinho/` — logo em SVG, fontes Redaction e fotos do carrossel do Sofazinho Club
+- `Uqbar/` — logo e fotos do carrossel da Uqbar
 - `ref 1.png`, `posters.png`, `sofazinho ref.png` — referências visuais usadas no design
 - `Dreamer TM.otf` — fonte do projeto
 
@@ -27,6 +28,7 @@ python -m http.server
 - Seção bento (introdução, foto, bio e link pro Behance)
 - Pastas de posters em estilo arquivo: abas em alturas aleatórias, sobreposição, sombra, expande no hover e abre o pôster inteiro no clique
 - Seção **Sofazinho Club**: logo com fontes Redaction (pesos misturados), símbolo do sofá em SVG que alterna rosa ↔ claro com efeito de pop, tags, descrição e carrossel infinito de fotos
+- Seção **Uqbar**: logo entre parênteses que alternam azul claro ↔ rosa, tags, descrição e carrossel infinito de fotos
 - Chat animado no fim da página (mensagens surgem "digitando" conforme você rola)
 - Seletor de idioma **PT | EN**
 - Cursor personalizado com `mix-blend-mode: difference`
