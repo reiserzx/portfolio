@@ -17,11 +17,12 @@ python -m http.server
 ## Estrutura
 
 - `index.html` — o site inteiro (marcação, estilos e scripts num único arquivo)
-- `posters/` — imagens dos pôsteres da seção de pastas
-- `Sofazinho/` — logo em SVG, fontes Redaction e fotos do carrossel do Sofazinho Club
-- `Uqbar/` — logo e fotos do carrossel da Uqbar
-- `ref 1.png`, `posters.png`, `sofazinho ref.png` — referências visuais usadas no design
-- `Dreamer TM.otf` — fonte do projeto
+- `assets/` — mídia geral do site: `foto.png` (foto do bento) e `fonts/` (fontes extras)
+- `projects/` — mídia de cada projeto:
+  - `posters/` — pôsteres da seção de pastas
+  - `sofazinho/` — fotos do carrossel, símbolo do sofá (`sofazinho.svg`) e fontes Redaction (`fonts/`)
+  - `uqbar/` — logo e fotos do carrossel
+- `refs/` — imagens de referência usadas no design
 
 ## O que tem na página
 
