@@ -761,18 +761,9 @@
 
         /* parênteses do título: piscam azul claro <-> rosa (igual Uqbar) */
         .posters-paren {
-            display: inline-block;
-            font-family: Georgia, 'Times New Roman', serif;
             font-size: 1.12em;
-            line-height: 0.8;
-            transform: scaleX(0.59);
             margin: 0 -0.055em;
-            color: var(--light);
-            transition: color 0.35s ease;
-            user-select: none;
         }
-
-        .posters-paren.is-pink { color: var(--pink); }
 
         /* ============ Uqbar: logo entre parênteses, tags, descrição e carrossel ============ */
         .uq-section {
@@ -797,22 +788,60 @@
             width: auto;
         }
 
-        .uq-paren {
+        /* parênteses que piscam (Uqbar, título dos Posters e Etc) */
+        .blink-paren {
+            display: inline-block;
             font-family: Georgia, 'Times New Roman', serif;
-            font-size: calc(var(--lh) * 1.2);
-            width: calc(var(--lh) * 0.24);
             line-height: 0.8;
-            text-align: center;
             transform: scaleX(0.59);
             color: var(--light);
             transition: color 0.35s ease;
             user-select: none;
         }
 
-        .uq-paren.is-pink { color: var(--pink); }
+        .blink-paren.is-pink { color: var(--pink); }
+
+        .uq-paren {
+            font-size: calc(var(--lh) * 1.2);
+            width: calc(var(--lh) * 0.24);
+            text-align: center;
+        }
 
         /* carrossel Uqbar reutiliza .sz-tags / .sz-tag / .sz-desc / .sz-carousel / .sz-track */
-        .uq-track { animation-duration: 85s; }
+        .uq-track { animation-duration: 53s; }
+
+        /* ============ Etc: outros projetos (clientes) ============ */
+        .etc-section {
+            width: 100%;
+            padding: 20px clamp(20px, 3.4vw, 66px) 110px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* --- título "etc..." entre parênteses que piscam --- */
+        .etc-logo {
+            --et: calc(var(--u) * 170);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 1.2vw, 26px);
+            width: 100%;
+        }
+
+        .etc-title {
+            font-size: var(--et);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            color: var(--light);
+            white-space: nowrap;
+        }
+
+        .etc-paren {
+            font-size: calc(var(--et) * 1.2);
+            width: calc(var(--et) * 0.24);
+            text-align: center;
+        }
+
+        .etc-track { animation-duration: 47s; }
 
         /* chat: seção final da página, sem visual de card bento */
         .chat-section {
@@ -1009,6 +1038,7 @@
             .sz-line2 { padding-left: calc(var(--ls) * 3.4); }
             .sz-symbol { --s: calc(var(--u) * 202); }
             .uq-logo { --lh: calc(var(--u) * 140); }
+            .etc-logo { --et: calc(var(--u) * 140); }
         }
 
         /* posters: no mobile/tablet viram carrossel (igual Sofazinho/Uqbar); as pastas ficam no desktop */
@@ -1042,6 +1072,7 @@
             .sz-line2 { padding-left: calc(var(--ls) * 2.4); }
             .sz-symbol { --s: 41px; gap: 8px; }
             .uq-logo { --lh: 40px; gap: 12px; }
+            .etc-logo { --et: 54px; gap: 10px; }
         }
 
 
@@ -1146,7 +1177,7 @@
 
         <!-- ================= POSTERS: pastas verticais (desktop) / carrossel (mobile) ================= -->
         <section class="posters-section" id="posters">
-            <h2 class="posters-head"><span class="posters-paren">(</span><span class="posters-title">Posters</span><span class="posters-paren">)</span></h2>
+            <h2 class="posters-head"><span class="blink-paren posters-paren">(</span><span class="posters-title">Posters</span><span class="blink-paren posters-paren">)</span></h2>
             <p class="sz-desc posters-desc" data-i18n="postersDesc">Projetos fan-made que criei para artistas e temas de que gosto.</p>
             <div class="folders">
                 <div class="folder" role="button" tabindex="0" aria-expanded="false" style="--r: 0.707">
@@ -1262,9 +1293,9 @@
         <!-- ================= UQBAR: logo entre parênteses, tags, descrição e carrossel ================= -->
         <section class="uq-section" id="uqbar">
             <div class="uq-logo">
-                <span class="uq-paren" aria-hidden="true">(</span>
+                <span class="blink-paren uq-paren" aria-hidden="true">(</span>
                 <img src="projects/uqbar/logo.png" alt="Uqbar">
-                <span class="uq-paren" aria-hidden="true">)</span>
+                <span class="blink-paren uq-paren" aria-hidden="true">)</span>
             </div>
 
             <div class="sz-tags">
@@ -1290,6 +1321,38 @@
                     <img src="projects/uqbar/4.webp" alt="" aria-hidden="true" loading="lazy">
                     <img src="projects/uqbar/5.webp" alt="" aria-hidden="true" loading="lazy">
                     <img src="projects/uqbar/7.webp" alt="" aria-hidden="true" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ETC: outros projetos (clientes) ================= -->
+        <section class="etc-section" id="etc">
+            <div class="etc-logo">
+                <span class="blink-paren etc-paren" aria-hidden="true">(</span>
+                <span class="etc-title">etc...</span>
+                <span class="blink-paren etc-paren" aria-hidden="true">)</span>
+            </div>
+
+            <div class="sz-tags">
+                <span class="sz-tag" data-i18n="etcTag1">design gráfico</span>
+            </div>
+
+            <p class="sz-desc" data-i18n="etcDesc">Projetos que criei para outros clientes.</p>
+
+            <div class="sz-carousel" aria-label="outros projetos">
+                <div class="sz-track etc-track">
+                    <img src="projects/etc/1.webp" alt="Capa e disco do projeto Techno Alien" loading="lazy">
+                    <img src="projects/etc/2.webp" alt="Capa do projeto Techno Alien" loading="lazy">
+                    <img src="projects/etc/3.webp" alt="Pôster do projeto Paradox 34" loading="lazy">
+                    <img src="projects/etc/4.webp" alt="Bemobi Academy — aplicativo" loading="lazy">
+                    <img src="projects/etc/5.webp" alt="Bemobi — tipografia 3D" loading="lazy">
+                    <img src="projects/etc/6.webp" alt="Render 3D de frasco" loading="lazy">
+                    <img src="projects/etc/1.webp" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/etc/2.webp" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/etc/3.webp" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/etc/4.webp" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/etc/5.webp" alt="" aria-hidden="true" loading="lazy">
+                    <img src="projects/etc/6.webp" alt="" aria-hidden="true" loading="lazy">
                 </div>
             </div>
         </section>
@@ -1366,7 +1429,9 @@
                 uqTag3: 'landing pages',
                 uqTag4: 'direção de arte',
                 uqDesc: 'Empresa brasileira líder em inteligência de mercado e dados dedicada exclusivamente a finanças estruturadas, securitização e crédito privado.',
-                postersDesc: 'Projetos fan-made que criei para artistas e temas de que gosto.'
+                postersDesc: 'Projetos fan-made que criei para artistas e temas de que gosto.',
+                etcTag1: 'design gráfico',
+                etcDesc: 'Projetos que criei para outros clientes.'
             },
             en: {
                 navProjects: 'projects',
@@ -1390,7 +1455,9 @@
                 uqTag3: 'landing pages',
                 uqTag4: 'art direction',
                 uqDesc: 'A Brazilian company leading in market intelligence and data, dedicated exclusively to structured finance, securitization and private credit.',
-                postersDesc: 'Fan-made projects I created for artists and themes I like.'
+                postersDesc: 'Fan-made projects I created for artists and themes I like.',
+                etcTag1: 'graphic design',
+                etcDesc: 'Projects I created for other clients.'
             }
         };
 
@@ -1568,6 +1635,7 @@
             }
             blink('.uq-section', '.uq-paren');
             blink('.posters-section', '.posters-paren');
+            blink('.etc-section', '.etc-paren');
         })();
 
         // ----- Carrosséis (Sofazinho, Uqbar e posters no mobile): movimento automático + arrastar pro lado -----
@@ -1578,7 +1646,9 @@
                 track.style.animation = 'none';   // JS assume o controle (CSS fica de fallback)
                 // segundos por volta (só vale quando o carrossel está visível)
                 const dur = track.classList.contains('posters-track') ? 35
-                    : track.classList.contains('uq-track') ? 53 : 60;
+                    : track.classList.contains('uq-track') ? 53
+                    : track.classList.contains('etc-track') ? 47
+                    : 60;
                 let half = 0, x = 0, last = 0;
                 let hover = false, dragging = false, startX = 0, startTx = 0;
 
