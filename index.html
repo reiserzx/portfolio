@@ -1041,6 +1041,81 @@
             .etc-logo { --et: calc(var(--u) * 140); }
         }
 
+        /* hero no mobile/tablet: composição própria — tipografia grande, toda alinhada à direita */
+        @media (max-width: 860px) {
+            .hero {
+                --mh: clamp(38px, min(22vw, 14vh), 124px);
+                height: 100vh;
+                height: 100svh;
+            }
+
+            .stage {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: center;
+                padding: 0 clamp(18px, 5vw, 34px);
+            }
+
+            /* cada palavra vira uma linha, encostada na direita */
+            .line {
+                position: static;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                width: auto;
+                line-height: 1.04;
+            }
+
+            .line .ruler { display: none; }
+            .line .bar { display: none; }
+
+            .word {
+                font-size: var(--mh);
+            }
+
+            /* mantém um traço claro separando "designer" de "creative" */
+            .line-2 > .bar.light {
+                display: block;
+                top: 0;
+                width: calc(var(--mh) * 0.6);
+                height: calc(var(--mh) * 0.08);
+                margin: calc(var(--mh) * 0.14) 0 calc(var(--mh) * 0.16);
+            }
+
+            /* asteriscos: o grande volta pro canto superior direito, cortado como no desktop */
+            .star-big {
+                left: auto;
+                right: calc(var(--mh) * -0.15);
+                top: 56px;
+                font-size: min(calc(var(--mh) * 4.6), 30vh);
+            }
+
+            .star-pink {
+                left: calc(var(--mh) * 0.15);
+                top: auto;
+                bottom: calc(var(--mh) * 0.55);
+                font-size: min(calc(var(--mh) * 1.3), 9vh);
+            }
+
+            .star-mid {
+                left: auto;
+                right: calc(var(--mh) * 0.35);
+                top: auto;
+                bottom: calc(var(--mh) * 0.55);
+                font-size: min(calc(var(--mh) * 1.3), 9vh);
+            }
+
+            .scroll-hint {
+                left: 50%;
+                top: auto;
+                bottom: 3.2vh;
+                font-size: 22px;
+            }
+        }
+
         /* posters: no mobile/tablet viram carrossel (igual Sofazinho/Uqbar); as pastas ficam no desktop */
         @media (max-width: 860px) {
             .folders { display: none; }
